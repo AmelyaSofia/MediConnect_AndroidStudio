@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_gradient" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="32dp"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center_horizontal">
+
+            <ImageView
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:src="@drawable/logomediconnect"
+                android:contentDescription="Logo MediConnect"
+                android:layout_marginTop="60dp"
+                android:layout_marginBottom="20dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tentang MediConnect"
+                android:textSize="26sp"
+                android:textColor="#4B0082"
+                android:textStyle="bold"
+                android:fontFamily="@font/poppins_bold"
+                android:layout_marginBottom="16dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="MediConnect adalah aplikasi rumah sakit modern yang dirancang untuk memudahkan pasien dalam membuat janji temu, mendapatkan informasi dokter, serta mengakses layanan kesehatan secara efisien dan cepat. Kami berkomitmen untuk memberikan pelayanan terbaik dengan sentuhan teknologi."
+                android:textColor="#000000"
+                android:textSize="16sp"
+                android:lineSpacingExtra="6dp"
+                android:gravity="center"
+                android:fontFamily="@font/poppins_regular"
+                android:layout_marginBottom="40dp" />
+
+            <Button
+                android:id="@+id/btnBack"
+                android:layout_width="200dp"
+                android:layout_height="50dp"
+                android:text="Kembali"
+                android:textColor="#FFFFFF"
+                android:fontFamily="@font/poppins_semibold"
+                android:background="@drawable/button_gradient"
+                android:elevation="6dp" />
+
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="primary_purple">#8A4FFF</color>
+    <color name="secondary_purple">#D8C8FF</color>
+    <color name="primary_blue">#1E88E5</color>
+    <color name="accent_pink">#F48FB1</color>
+    <color name="accent_green">#4CAF50</color>
+    <color name="accent_orange">#FF9800</color>
+    <color name="accent_red">#E74C3C</color>
+    <color name="black">#000000</color>
+    <color name="white">#FFFFFF</color>
+    <color name="text_gray">#666666</color>
+    <color name="text_dark_gray">#333333</color>
+    <color name="text_light_gray">#AAAAAA</color>
+    <color name="background_light">#F9F8FF</color>
+    <color name="bg_gradient_start">#F9F8FF</color>
+    <color name="bg_gradient_end">#EDECF7</color>
+    <color name="card_gradient_start">#FFFFFF</color>
+    <color name="card_gradient_end">#F3F3F3</color>
+    <color name="divider_gray">#CCCCCC</color>
+    <color name="icon_gray">#555555</color>
+    <color name="badge_bg_orange">#FFE0B2</color>
+    <color name="badge_bg_green">#C8E6C9</color>
+    <color name="badge_bg_red">#FFCDD2</color>
+    <color name="shadow_gray">#33000000</color>
+</resources>
