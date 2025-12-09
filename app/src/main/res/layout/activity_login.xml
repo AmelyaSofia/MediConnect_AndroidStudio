@@ -67,12 +67,13 @@
             android:layout_marginBottom="16dp"/>
 
         <EditText
-            android:id="@+id/etName"
+            android:id="@+id/etPassword"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:hint="Nama"
+            android:hint="Password"
             android:padding="12dp"
             android:background="@drawable/edittext_background"
+            android:inputType="textPassword"
             android:fontFamily="@font/montserrat_regular"
             android:layout_marginBottom="24dp"/>
 

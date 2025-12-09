@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:background="@drawable/card_background"
+    android:elevation="8dp"
+    android:padding="16dp"
+    android:layout_marginBottom="16dp">
+
+    <ImageView
+        android:id="@+id/imgDokter"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:scaleType="fitCenter"/>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:paddingStart="12dp"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:id="@+id/txtNamaDokter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:fontFamily="@font/montserrat_bold"
+            android:textColor="#2E2E2E" />
+
+        <TextView
+            android:id="@+id/txtSpesialisDokter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:fontFamily="@font/montserrat_medium"
+            android:textColor="#555555" />
+
+    </LinearLayout>
+
+</LinearLayout>
