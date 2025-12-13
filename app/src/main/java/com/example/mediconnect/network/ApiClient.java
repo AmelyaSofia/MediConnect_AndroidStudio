@@ -16,18 +16,11 @@ public class ApiClient {
             logging.setLevel(HttpLoggingInterceptor.Level.BODY);
 
             OkHttpClient client = new OkHttpClient.Builder()
-                    .addInterceptor(chain -> {
-                        return chain.proceed(
-                                chain.request().newBuilder()
-                                        .addHeader("ngrok-skip-browser-warning", "true")
-                                        .build()
-                        );
-                    })
                     .addInterceptor(logging)
                     .build();
 
             retrofit = new Retrofit.Builder()
-                    .baseUrl("https://0f1e56053eed.ngrok-free.app/")
+                    .baseUrl("http://10.0.2.2:8000")
                     .client(client)
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
@@ -35,4 +28,3 @@ public class ApiClient {
         return retrofit;
     }
 }
-

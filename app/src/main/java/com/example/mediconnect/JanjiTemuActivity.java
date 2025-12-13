@@ -5,6 +5,7 @@ import android.app.TimePickerDialog;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -17,7 +18,7 @@ import java.util.Calendar;
 
 public class JanjiTemuActivity extends AppCompatActivity {
 
-    Button btnPilihTanggal, btnPilihWaktu, btnKonfirmasiJanji;
+    Button btnPilihTanggal, btnPilihWaktu, btnKonfirmasiJanji, btnBack;
     TextView tvTanggalDipilih, tvWaktuDipilih, tvNamaDokterJanji, tvSpesialisJanji;
     ImageView imgDokterJanji;
     RadioGroup rgMetodePembayaran;
@@ -30,6 +31,8 @@ public class JanjiTemuActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_janji_temu);
 
+        ImageButton btnBack = findViewById(R.id.btnBack);
+        btnBack.setOnClickListener(v -> finish());
         btnPilihTanggal = findViewById(R.id.btnPilihTanggal);
         btnPilihWaktu = findViewById(R.id.btnPilihWaktu);
         btnKonfirmasiJanji = findViewById(R.id.btnKonfirmasiJanji);

@@ -1,94 +1,247 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_gradient"
+    android:padding="8dp">
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/bg_gradient" />
-
+    <!-- Container utama profile -->
     <LinearLayout
         android:orientation="vertical"
-        android:padding="32dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:padding="24dp"
         android:layout_centerInParent="true"
         android:background="@drawable/card_background"
-        android:elevation="8dp"
-        android:gravity="center_horizontal">
+        android:elevation="12dp"
+        android:gravity="center_horizontal"
+        android:layout_marginHorizontal="8dp"
+        android:clipToPadding="false"
+        android:clipChildren="false">
 
-        <ImageView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:src="@drawable/ic_profile"
-            android:layout_marginBottom="16dp" />
+        <!-- Tombol Kembali untuk admin -->
+        <Button
+            android:id="@+id/btnBack"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:text="Kembali"
+            android:layout_gravity="start"
+            android:visibility="gone"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/button_outline"
+            android:textColor="#4B0082"
+            android:fontFamily="@font/poppins_semibold"
+            android:paddingHorizontal="16dp"
+            android:minWidth="0dp"
+            android:minHeight="0dp"/>
 
-        <TextView
+        <!-- Avatar profile dengan bayangan -->
+        <RelativeLayout
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_marginBottom="24dp"
+            android:elevation="16dp"
+            android:background="@drawable/ic_profile"
+            android:padding="0dp">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_profile"
+                android:contentDescription="Profile Image"
+                android:scaleType="centerCrop"
+                android:background="@drawable/ic_profile"/>
+        </RelativeLayout>
+
+        <!-- Judul dengan garis bawah dekoratif -->
+        <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Profil Anda"
-            android:textSize="24sp"
-            android:textColor="#4B0082"
-            android:textStyle="bold"
-            android:fontFamily="@font/poppins_bold"
-            android:layout_marginBottom="24dp" />
+            android:layout_marginBottom="24dp">
 
-        <TextView
+            <TextView
+                android:id="@+id/tvTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Profil Anda"
+                android:textSize="24sp"
+                android:textColor="#4B0082"
+                android:textStyle="bold"
+                android:fontFamily="@font/poppins_bold"/>
+
+            <View
+                android:layout_width="40dp"
+                android:layout_height="3dp"
+                android:background="#4B0082"
+                android:layout_below="@id/tvTitle"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="4dp"/>
+        </RelativeLayout>
+
+        <!-- Info Nama dengan border -->
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Nama"
-            android:textColor="#4B0082"
-            android:textStyle="bold"
-            android:fontFamily="@font/poppins_semibold"
-            android:layout_marginBottom="4dp" />
+            android:orientation="vertical"
+            android:padding="12dp"
+            android:background="@android:color/transparent"
+            android:layout_marginBottom="16dp"
+            android:elevation="4dp">
 
-        <TextView
-            android:id="@+id/tvName"
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Nama"
+                android:textColor="#4B0082"
+                android:textStyle="bold"
+                android:fontFamily="@font/poppins_semibold"
+                android:textSize="12sp"
+                android:letterSpacing="0.05"
+                android:layout_marginBottom="4dp"/>
+
+            <!-- Container dengan border untuk nama -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:background="@drawable/border_shape"
+                android:paddingVertical="12dp"
+                android:paddingHorizontal="16dp"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="8dp">
+
+                <TextView
+                    android:id="@+id/tvName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Nama User"
+                    android:textColor="#333333"
+                    android:textSize="16sp"
+                    android:fontFamily="@font/poppins_regular"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Info Email dengan border -->
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Nama User"
-            android:textColor="#000000"
-            android:textSize="18sp"
-            android:fontFamily="@font/poppins_regular"
-            android:layout_marginBottom="16dp" />
+            android:orientation="vertical"
+            android:padding="12dp"
+            android:background="@android:color/transparent"
+            android:layout_marginBottom="32dp"
+            android:elevation="4dp">
 
-        <TextView
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Email"
+                android:textColor="#4B0082"
+                android:textStyle="bold"
+                android:fontFamily="@font/poppins_semibold"
+                android:textSize="12sp"
+                android:letterSpacing="0.05"
+                android:layout_marginBottom="4dp"/>
+
+            <!-- Container dengan border untuk email -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:background="@drawable/border_shape"
+                android:paddingVertical="12dp"
+                android:paddingHorizontal="16dp"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="8dp">
+
+                <TextView
+                    android:id="@+id/tvEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="email@example.com"
+                    android:textColor="#333333"
+                    android:textSize="16sp"
+                    android:fontFamily="@font/poppins_regular"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Container untuk tombol utama (Update & Logout) -->
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Email"
-            android:textColor="#4B0082"
-            android:textStyle="bold"
-            android:fontFamily="@font/poppins_semibold"
-            android:layout_marginBottom="4dp" />
+            android:orientation="horizontal"
+            android:layout_marginBottom="16dp"
+            android:gravity="center"
+            android:weightSum="2">
 
-        <TextView
-            android:id="@+id/tvEmail"
+            <Button
+                android:id="@+id/btnUpdate"
+                android:layout_width="0dp"
+                android:layout_height="52dp"
+                android:layout_weight="1"
+                android:text="Update Profile"
+                android:textSize="14sp"
+                android:textColor="#FFFFFF"
+                android:fontFamily="@font/poppins_semibold"
+                android:background="@drawable/button_gradient"
+                android:layout_marginEnd="6dp"
+                android:drawablePadding="8dp"
+                android:paddingHorizontal="12dp"
+                android:elevation="8dp"
+                android:stateListAnimator="@null"/>
+
+            <Button
+                android:id="@+id/btnLogout"
+                android:layout_width="0dp"
+                android:layout_height="52dp"
+                android:layout_weight="1"
+                android:text="Logout"
+                android:textSize="14sp"
+                android:textColor="#FFFFFF"
+                android:fontFamily="@font/poppins_semibold"
+                android:background="@drawable/button_gradient"
+                android:layout_marginStart="6dp"
+                android:drawablePadding="8dp"
+                android:paddingHorizontal="12dp"
+                android:elevation="8dp"
+                android:stateListAnimator="@null"/>
+        </LinearLayout>
+
+        <!-- Container untuk tombol sekunder -->
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="email@example.com"
-            android:textColor="#000000"
-            android:textSize="18sp"
-            android:fontFamily="@font/poppins_regular"
-            android:layout_marginBottom="24dp" />
+            android:orientation="vertical"
+            android:layout_marginTop="8px">
 
-        <Button
-            android:id="@+id/btnAbout"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:text="Tentang MediConnect"
-            android:textColor="#4B0082"
-            android:fontFamily="@font/poppins_semibold"
-            android:background="@drawable/button_outline"
-            android:layout_marginBottom="12dp" />
+            <Button
+                android:id="@+id/btnAbout"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:text="Tentang"
+                android:textSize="14sp"
+                android:textColor="#ffffff"
+                android:fontFamily="@font/poppins_semibold"
+                android:background="@drawable/button_outline"
+                android:layout_marginBottom="12dp"
+                android:drawablePadding="8dp"
+                android:paddingHorizontal="16dp"
+                android:elevation="4dp"
+                android:stateListAnimator="@null"/>
 
-        <Button
-            android:id="@+id/btnLogout"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:text="Logout"
-            android:textColor="#FFFFFF"
-            android:fontFamily="@font/poppins_semibold"
-            android:background="@drawable/button_gradient" />
+            <Button
+                android:id="@+id/btnDelete"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:text="Hapus Akun"
+                android:textSize="14sp"
+                android:textColor="#FFFFFF"
+                android:fontFamily="@font/poppins_semibold"
+                android:background="@drawable/button_delete"
+                android:drawablePadding="8dp"
+                android:paddingHorizontal="16dp"
+                android:elevation="4dp"
+                android:stateListAnimator="@null"/>
+        </LinearLayout>
+
     </LinearLayout>
 </RelativeLayout>

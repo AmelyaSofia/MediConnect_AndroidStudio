@@ -28,12 +28,27 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        prefs = getSharedPreferences("USER_DATA", MODE_PRIVATE);
+
+        // Cek token dulu
+        String token = prefs.getString("token", null);
+        if (token != null) {
+            // Ambil role dari SharedPreferences
+            String role = prefs.getString("role", "user");
+
+            if ("admin".equals(role)) {
+                startActivity(new Intent(LoginActivity.this, AdminActivity.class));
+            } else {
+                startActivity(new Intent(LoginActivity.this, MainActivity.class));
+            }
+            finish();
+            return;
+        }
+
         etEmail = findViewById(R.id.etEmail);
         etPassword = findViewById(R.id.etPassword);
         btnLogin = findViewById(R.id.btnLogin);
         btnGoRegister = findViewById(R.id.btnGoRegister);
-
-        prefs = getSharedPreferences("USER_DATA", MODE_PRIVATE);
 
         btnLogin.setOnClickListener(v -> {
             String email = etEmail.getText().toString().trim();
@@ -63,17 +78,30 @@ public class LoginActivity extends AppCompatActivity {
 
                     LoginResponse res = response.body();
 
-                    // simpan token Laravel
+                    // Simpan semua data penting ke SharedPreferences
                     SharedPreferences.Editor editor = prefs.edit();
                     editor.putString("token", res.data.token);
+                    editor.putInt("user_id", res.data.user.id);
                     editor.putString("name", res.data.user.name);
                     editor.putString("email", res.data.user.email);
+                    editor.putString("role", res.data.user.role);
                     editor.apply();
 
                     Toast.makeText(LoginActivity.this, "Login Berhasil", Toast.LENGTH_SHORT).show();
 
-                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                    // Cek role dan pindah ke Activity sesuai role
+                    switch (res.data.user.role) {
+                        case "admin":
+                            startActivity(new Intent(LoginActivity.this, AdminActivity.class));
+                            break;
+                        case "user":
+                        default:
+                            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                            break;
+                    }
+
                     finish();
+
                 } else {
                     Toast.makeText(LoginActivity.this,
                             "Email atau password salah",
@@ -84,9 +112,9 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<LoginResponse> call, Throwable t) {
                 Toast.makeText(LoginActivity.this,
-                        "Gagal terhubung ke server",
-                        Toast.LENGTH_SHORT).show();
+                        "Gagal terhubung ke server", Toast.LENGTH_SHORT).show();
             }
         });
     }
+
 }
