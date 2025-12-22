@@ -1,5 +1,6 @@
 package com.example.mediconnect.network;
 
+import com.example.mediconnect.model.DokterResponse;
 import com.example.mediconnect.model.LoginResponse;
 import com.example.mediconnect.model.UpdateUserResponse;
 import com.example.mediconnect.model.UserModel;
@@ -45,4 +46,9 @@ public interface ApiService {
 
     @GET("/api/users")
     Call<UsersResponse> getAllUsers(@Header("Authorization") String token);
+
+    @GET("/api/doctors")
+    Call<DokterResponse> getAllDoctors(
+            @Header("Authorization") String token
+    );
 }

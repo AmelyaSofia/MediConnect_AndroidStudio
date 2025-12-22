@@ -9,6 +9,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.mediconnect.R;
 import com.example.mediconnect.model.DokterModel;
 
@@ -31,20 +32,29 @@ public class DokterAdapter extends RecyclerView.Adapter<DokterAdapter.ViewHolder
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext())
+        View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_dokter, parent, false);
-        return new ViewHolder(v);
+        return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         DokterModel dokter = list.get(position);
 
-        holder.nama.setText(dokter.getNama());
-        holder.spesialis.setText(dokter.getSpesialis());
-        holder.foto.setImageResource(dokter.getFoto());
+        // ✅ SESUAI MODEL BARU
+        holder.nama.setText(dokter.getName());
+        holder.spesialis.setText(dokter.getSpecialization());
 
-        holder.itemView.setOnClickListener(v -> listener.onDokterClick(dokter));
+        // ✅ FOTO DARI API (URL)
+        Glide.with(holder.itemView.getContext())
+                .load("http://10.0.2.2:8000/storage/" + dokter.getPhoto())
+                .placeholder(R.drawable.ic_doctor)
+                .error(R.drawable.ic_doctor)
+                .into(holder.foto);
+
+        holder.itemView.setOnClickListener(v ->
+                listener.onDokterClick(dokter)
+        );
     }
 
     @Override
@@ -53,12 +63,12 @@ public class DokterAdapter extends RecyclerView.Adapter<DokterAdapter.ViewHolder
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
+
         TextView nama, spesialis;
         ImageView foto;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-
             nama = itemView.findViewById(R.id.txtNamaDokter);
             spesialis = itemView.findViewById(R.id.txtSpesialisDokter);
             foto = itemView.findViewById(R.id.imgDokter);

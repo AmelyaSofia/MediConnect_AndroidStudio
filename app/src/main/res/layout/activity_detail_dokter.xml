@@ -37,7 +37,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:gravity="center"
-                android:layout_marginBottom="16dp">
+                android:layout_marginBottom="12dp">
 
                 <TextView
                     android:id="@+id/tvDetailNamaDokter"
@@ -48,7 +48,6 @@
                     android:textStyle="bold"
                     android:fontFamily="@font/montserrat_bold"
                     android:textColor="#2E2E2E"
-                    android:layout_marginBottom="4dp"
                     android:gravity="center" />
 
                 <TextView
@@ -62,6 +61,18 @@
                     android:gravity="center" />
             </LinearLayout>
 
+            <!-- ✅ JADWAL DOKTER -->
+            <TextView
+                android:id="@+id/tvDetailJadwal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Jadwal Praktik"
+                android:textSize="15sp"
+                android:fontFamily="@font/montserrat_medium"
+                android:textColor="#666666"
+                android:layout_marginBottom="12dp"
+                android:gravity="center" />
+
             <TextView
                 android:id="@+id/tvDetailDeskripsi"
                 android:layout_width="match_parent"
@@ -70,7 +81,7 @@
                 android:textColor="#333333"
                 android:textSize="16sp"
                 android:fontFamily="@font/montserrat_regular"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="8dp"
                 android:lineSpacingExtra="4dp"
                 android:gravity="start" />
 
@@ -85,8 +96,7 @@
                 android:backgroundTint="@color/primary_purple"
                 android:layout_marginTop="24dp"
                 android:padding="12dp"
-                android:elevation="6dp"
-                android:layout_gravity="center_horizontal" />
+                android:elevation="6dp" />
 
         </LinearLayout>
     </ScrollView>
@@ -103,6 +113,5 @@
         android:contentDescription="Kembali"
         app:tint="@color/white"
         android:elevation="4dp" />
-
 
 </FrameLayout>
