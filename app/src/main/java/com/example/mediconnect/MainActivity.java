@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
                 } else if (id == R.id.nav_janji) {
                     selectedFragment = new JanjiTemuFragment();
                 } else if (id == R.id.nav_profile) {
-                    selectedFragment = ProfileFragment.newInstance(false); // user biasa = false
+                    selectedFragment = ProfileFragment.newInstance(false);
                 }
 
                 if (selectedFragment != null) {

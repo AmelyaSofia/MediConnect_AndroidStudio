@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -73,14 +74,24 @@ public class DokterFragment extends Fragment {
 
         SharedPreferences prefs =
                 requireContext().getSharedPreferences("AUTH", Context.MODE_PRIVATE);
-        String token = prefs.getString("token", "");
+
+        String token = prefs.getString("token", null);
+
+        if (token == null || token.isEmpty()) {
+            Toast.makeText(requireActivity(),
+                    "Silakan login ulang",
+                    Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        Log.d("TOKEN", token);
 
         JsonObjectRequest request = new JsonObjectRequest(
                 Request.Method.GET,
                 URL_DOKTER,
                 null,
                 response -> {
-                    if (!isAdded()) return; // ⛑️ PENTING
+                    if (!isAdded()) return;
 
                     try {
                         JSONArray data = response.getJSONArray("data");
@@ -109,7 +120,7 @@ public class DokterFragment extends Fragment {
                     }
                 },
                 error -> {
-                    if (!isAdded()) return; // ⛑️ WAJIB
+                    if (!isAdded()) return;
 
                     Toast.makeText(requireActivity(),
                             "Gagal mengambil data dokter",

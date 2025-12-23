@@ -36,7 +36,7 @@ public class HomeFragment extends Fragment {
         tvSubWelcome = view.findViewById(R.id.tvSubWelcome);
         imgLogo = view.findViewById(R.id.imgLogo);
 
-        SharedPreferences pref = requireContext().getSharedPreferences("USER_DATA", Context.MODE_PRIVATE);
+        SharedPreferences pref = requireContext().getSharedPreferences("AUTH", Context.MODE_PRIVATE);
         String namaUser = pref.getString("name", "User");
         tvWelcome.setText("Halo, " + namaUser + " 👋");
 

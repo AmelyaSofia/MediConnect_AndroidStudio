@@ -35,7 +35,6 @@
             // Required empty public constructor
         }
 
-        // Gunakan ini untuk membuat instance fragment dengan flag isAdmin
         public static ProfileFragment newInstance(boolean isAdmin) {
             ProfileFragment fragment = new ProfileFragment();
             Bundle args = new Bundle();
@@ -71,14 +70,13 @@
                 btnBack.setVisibility(View.GONE);
             }
 
-            SharedPreferences prefs = requireActivity().getSharedPreferences("USER_DATA", Context.MODE_PRIVATE);
+            SharedPreferences prefs = requireActivity().getSharedPreferences("AUTH", Context.MODE_PRIVATE);
             String name = prefs.getString("name", "Belum ada Akun");
             String email = prefs.getString("email", "Belum ada Akun");
 
             tvName.setText(name);
             tvEmail.setText(email);
 
-            // Tombol update user
             btnUpdate.setOnClickListener(v -> showUpdateDialog(prefs));
             btnLogout.setOnClickListener(v -> logoutUser(prefs));
             btnDelete.setOnClickListener(v -> deleteUser(prefs));
@@ -195,14 +193,12 @@
                 @Override
                 public void onResponse(Call<Void> call, Response<Void> response) {
                     if (response.isSuccessful()) {
-                        // Hapus SharedPreferences
                         SharedPreferences.Editor editor = prefs.edit();
                         editor.clear();
                         editor.apply();
 
                         Toast.makeText(getContext(), "Akun berhasil dihapus", Toast.LENGTH_SHORT).show();
 
-                        // Kembali ke login
                         startActivity(new Intent(getActivity(), com.example.mediconnect.LoginActivity.class)
                                 .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK));
                         requireActivity().finish();

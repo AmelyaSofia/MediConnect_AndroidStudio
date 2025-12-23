@@ -28,12 +28,10 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        prefs = getSharedPreferences("USER_DATA", MODE_PRIVATE);
+        prefs = getSharedPreferences("AUTH", MODE_PRIVATE);
 
-        // Cek token dulu
         String token = prefs.getString("token", null);
         if (token != null) {
-            // Ambil role dari SharedPreferences
             String role = prefs.getString("role", "user");
 
             if ("admin".equals(role)) {
@@ -78,7 +76,6 @@ public class LoginActivity extends AppCompatActivity {
 
                     LoginResponse res = response.body();
 
-                    // Simpan semua data penting ke SharedPreferences
                     SharedPreferences.Editor editor = prefs.edit();
                     editor.putString("token", res.data.token);
                     editor.putInt("user_id", res.data.user.id);
