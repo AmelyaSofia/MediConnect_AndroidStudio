@@ -1,5 +1,6 @@
 package com.example.mediconnect.adapter;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,13 +42,14 @@ public class DokterAdapter extends RecyclerView.Adapter<DokterAdapter.ViewHolder
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         DokterModel dokter = list.get(position);
 
-        // ✅ SESUAI MODEL BARU
         holder.nama.setText(dokter.getName());
         holder.spesialis.setText(dokter.getSpecialization());
 
-        // ✅ FOTO DARI API (URL)
+        String url = "http://10.0.2.2:8000/" + dokter.getPhoto();
+        Log.d("ini link", url);
+
         Glide.with(holder.itemView.getContext())
-                .load("http://10.0.2.2:8000/storage/" + dokter.getPhoto())
+                .load(url)
                 .placeholder(R.drawable.ic_doctor)
                 .error(R.drawable.ic_doctor)
                 .into(holder.foto);
