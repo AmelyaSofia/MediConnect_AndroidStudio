@@ -29,7 +29,6 @@ public class DetailDokterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_dokter);
 
-        // Init view
         btnBack = findViewById(R.id.btnBack);
         btnAturJanjiTemu = findViewById(R.id.btnAturJanjiTemu);
         imgDokter = findViewById(R.id.imgDetailDokter);
@@ -46,23 +45,19 @@ public class DetailDokterActivity extends AppCompatActivity {
         String fotoUrl = intent.getStringExtra(EXTRA_FOTO);
         String jadwal = intent.getStringExtra(EXTRA_JADWAL);
 
-        // Set data ke view
         tvNamaDokter.setText(nama);
         tvSpesialisDokter.setText(spesialis);
         tvDeskripsiDokter.setText(deskripsi);
         tvJadwal.setText(jadwal);
 
-        // Load foto dari API (URL)
         Glide.with(this)
-                .load("http://10.0.2.2:8000/storage/" + fotoUrl)
+                .load("http://10.0.2.2:8000/" + fotoUrl)
                 .placeholder(R.drawable.ic_doctor)
                 .error(R.drawable.ic_doctor)
                 .into(imgDokter);
 
-        // Tombol back
         btnBack.setOnClickListener(v -> finish());
 
-        // Tombol atur janji temu
         btnAturJanjiTemu.setOnClickListener(v -> {
             Intent i = new Intent(DetailDokterActivity.this, JanjiTemuActivity.class);
             i.putExtra("nama_dokter", nama);
