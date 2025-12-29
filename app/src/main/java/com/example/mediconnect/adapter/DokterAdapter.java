@@ -46,9 +46,11 @@ public class DokterAdapter extends RecyclerView.Adapter<DokterAdapter.ViewHolder
         holder.spesialis.setText(dokter.getSpecialization());
 
         String url = "http://10.0.2.2:8000/" + dokter.getPhoto();
-        Log.d("ini link", url);
+        Log.d("INI_LINK", url);
 
-        Glide.with(holder.itemView.getContext())
+        holder.foto.setImageDrawable(null);
+
+        Glide.with(holder.itemView)
                 .load(url)
                 .placeholder(R.drawable.ic_doctor)
                 .error(R.drawable.ic_doctor)
@@ -58,6 +60,7 @@ public class DokterAdapter extends RecyclerView.Adapter<DokterAdapter.ViewHolder
                 listener.onDokterClick(dokter)
         );
     }
+
 
     @Override
     public int getItemCount() {
