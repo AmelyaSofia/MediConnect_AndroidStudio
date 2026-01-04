@@ -1,7 +1,10 @@
 package com.example.mediconnect.network;
 
+import com.example.mediconnect.model.AppointmentModel;
+import com.example.mediconnect.model.AppointmentResponse;
 import com.example.mediconnect.model.DokterResponse;
 import com.example.mediconnect.model.LoginResponse;
+import com.example.mediconnect.model.MyAppointmentResponse;
 import com.example.mediconnect.model.UpdateUserResponse;
 import com.example.mediconnect.model.UserModel;
 import com.example.mediconnect.model.UsersResponse;
@@ -51,4 +54,16 @@ public interface ApiService {
     Call<DokterResponse> getAllDoctors(
             @Header("Authorization") String token
     );
+
+    @FormUrlEncoded
+    @POST("/api/appointments")
+    Call<AppointmentResponse> createAppointment(
+            @Header("Authorization") String token,
+            @Field("doctor_id") int doctorId,
+            @Field("appointment_date") String date,
+            @Field("appointment_time") String time,
+            @Field("note") String note
+    );
+    @GET("/api/appointments/my")
+    Call<MyAppointmentResponse> getMyAppointments(@Header("Authorization") String token);
 }

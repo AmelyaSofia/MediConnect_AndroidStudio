@@ -18,6 +18,7 @@ public class DetailDokterActivity extends AppCompatActivity {
     public static final String EXTRA_DESKRIPSI = "deskripsi";
     public static final String EXTRA_FOTO = "foto";
     public static final String EXTRA_JADWAL = "jadwal";
+    public static final String EXTRA_DOCTOR_ID = "doctor_id";
 
     private ImageView imgDokter;
     private TextView tvNamaDokter, tvSpesialisDokter, tvDeskripsiDokter, tvJadwal;
@@ -35,23 +36,24 @@ public class DetailDokterActivity extends AppCompatActivity {
         tvNamaDokter = findViewById(R.id.tvDetailNamaDokter);
         tvSpesialisDokter = findViewById(R.id.tvDetailSpesialis);
         tvDeskripsiDokter = findViewById(R.id.tvDetailDeskripsi);
-        tvJadwal = findViewById(R.id.tvDetailJadwal); // pastikan ada di XML
+        tvJadwal = findViewById(R.id.tvDetailJadwal);
 
-        // Ambil data dari intent
         Intent intent = getIntent();
         String nama = intent.getStringExtra(EXTRA_NAMA);
         String spesialis = intent.getStringExtra(EXTRA_SPESIALIS);
         String deskripsi = intent.getStringExtra(EXTRA_DESKRIPSI);
         String fotoUrl = intent.getStringExtra(EXTRA_FOTO);
         String jadwal = intent.getStringExtra(EXTRA_JADWAL);
+        int doctorId = intent.getIntExtra(EXTRA_DOCTOR_ID, -1);
 
-        tvNamaDokter.setText(nama);
-        tvSpesialisDokter.setText(spesialis);
-        tvDeskripsiDokter.setText(deskripsi);
-        tvJadwal.setText(jadwal);
+        // Set data ke UI
+        tvNamaDokter.setText(nama != null ? nama : "-");
+        tvSpesialisDokter.setText(spesialis != null ? spesialis : "-");
+        tvDeskripsiDokter.setText(deskripsi != null ? deskripsi : "-");
+        tvJadwal.setText(jadwal != null ? jadwal : "-");
 
         Glide.with(this)
-                .load("http://10.0.2.2:8000/" + fotoUrl)
+                .load(fotoUrl != null ? "http://10.0.2.2:8000/" + fotoUrl : R.drawable.ic_doctor)
                 .placeholder(R.drawable.ic_doctor)
                 .error(R.drawable.ic_doctor)
                 .into(imgDokter);
@@ -59,10 +61,23 @@ public class DetailDokterActivity extends AppCompatActivity {
         btnBack.setOnClickListener(v -> finish());
 
         btnAturJanjiTemu.setOnClickListener(v -> {
+            if (doctorId == -1) return;
             Intent i = new Intent(DetailDokterActivity.this, JanjiTemuActivity.class);
-            i.putExtra("nama_dokter", nama);
-            i.putExtra("spesialis", spesialis);
+            i.putExtra(DetailDokterActivity.EXTRA_DOCTOR_ID, doctorId);
+            i.putExtra(DetailDokterActivity.EXTRA_NAMA, nama);
+            i.putExtra(DetailDokterActivity.EXTRA_SPESIALIS, spesialis);
+            i.putExtra(DetailDokterActivity.EXTRA_FOTO, fotoUrl);
             startActivity(i);
         });
+//        btnAturJanjiTemu.setOnClickListener(v -> {
+//            Toast.makeText(this, "TOMBOL DIKLIK", Toast.LENGTH_SHORT).show();
+//
+//            Intent i = new Intent(DetailDokterActivity.this, JanjiTemuActivity.class);
+//            i.putExtra(EXTRA_DOCTOR_ID, 1); // HARD CODE DULU
+//            i.putExtra(EXTRA_NAMA, "Tes Dokter");
+//            i.putExtra(EXTRA_SPESIALIS, "Tes Spesialis");
+//            startActivity(i);
+//        });
+
     }
 }

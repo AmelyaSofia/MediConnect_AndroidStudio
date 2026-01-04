@@ -23,4 +23,5 @@
     <color name="badge_bg_green">#C8E6C9</color>
     <color name="badge_bg_red">#FFCDD2</color>
     <color name="shadow_gray">#33000000</color>
+    <color name="gray_text">#757575</color>
 </resources>

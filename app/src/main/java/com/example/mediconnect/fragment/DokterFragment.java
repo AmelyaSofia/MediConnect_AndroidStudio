@@ -16,30 +16,25 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.mediconnect.DetailDokterActivity;
 import com.example.mediconnect.R;
 import com.example.mediconnect.adapter.DokterAdapter;
 import com.example.mediconnect.model.DokterModel;
-import com.example.mediconnect.network.VolleySingleton;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
+import com.example.mediconnect.model.DokterResponse;
+import com.example.mediconnect.network.ApiClient;
+import com.example.mediconnect.network.ApiService;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class DokterFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private DokterAdapter adapter;
     private final ArrayList<DokterModel> listDokter = new ArrayList<>();
-
-    private static final String URL_DOKTER =
-            "http://10.0.2.2:8000/api/doctors";
 
     @Nullable
     @Override
@@ -55,6 +50,7 @@ public class DokterFragment extends Fragment {
 
         adapter = new DokterAdapter(listDokter, dokter -> {
             Intent intent = new Intent(requireActivity(), DetailDokterActivity.class);
+            intent.putExtra(DetailDokterActivity.EXTRA_DOCTOR_ID, dokter.getId());
             intent.putExtra("nama", dokter.getName());
             intent.putExtra("spesialis", dokter.getSpecialization());
             intent.putExtra("deskripsi", dokter.getDescription());
@@ -84,59 +80,42 @@ public class DokterFragment extends Fragment {
             return;
         }
 
-        Log.d("TOKEN", token);
+        ApiService apiService = ApiClient.getClient().create(ApiService.class);
 
-        JsonObjectRequest request = new JsonObjectRequest(
-                Request.Method.GET,
-                URL_DOKTER,
-                null,
-                response -> {
-                    if (!isAdded()) return;
+        Call<DokterResponse> call =
+                apiService.getAllDoctors("Bearer " + token);
 
-                    try {
-                        JSONArray data = response.getJSONArray("data");
-                        listDokter.clear();
+        call.enqueue(new Callback<DokterResponse>() {
+            @Override
+            public void onResponse(
+                    @NonNull Call<DokterResponse> call,
+                    @NonNull Response<DokterResponse> response
+            ) {
+                if (!isAdded()) return;
 
-                        for (int i = 0; i < data.length(); i++) {
-                            JSONObject d = data.getJSONObject(i);
-
-                            listDokter.add(new DokterModel(
-                                    d.getInt("id"),
-                                    d.getString("name"),
-                                    d.getString("specialization"),
-                                    d.optString("phone"),
-                                    d.getString("schedule"),
-                                    d.optString("description"),
-                                    d.optString("photo")
-                            ));
-                        }
-
-                        adapter.notifyDataSetChanged();
-
-                    } catch (Exception e) {
-                        Toast.makeText(requireActivity(),
-                                "Gagal parsing data dokter",
-                                Toast.LENGTH_SHORT).show();
-                    }
-                },
-                error -> {
-                    if (!isAdded()) return;
-
+                if (response.isSuccessful() && response.body() != null) {
+                    listDokter.clear();
+                    listDokter.addAll(response.body().getData());
+                    adapter.notifyDataSetChanged();
+                } else {
                     Toast.makeText(requireActivity(),
                             "Gagal mengambil data dokter",
                             Toast.LENGTH_SHORT).show();
                 }
-        ) {
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                Map<String, String> headers = new HashMap<>();
-                headers.put("Accept", "application/json");
-                headers.put("Authorization", "Bearer " + token);
-                return headers;
             }
-        };
 
-        VolleySingleton.getInstance(requireContext())
-                .addToRequestQueue(request);
+            @Override
+            public void onFailure(
+                    @NonNull Call<DokterResponse> call,
+                    @NonNull Throwable t
+            ) {
+                if (!isAdded()) return;
+
+                Log.e("DOKTER_ERROR", t.getMessage());
+                Toast.makeText(requireActivity(),
+                        "Koneksi bermasalah",
+                        Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }
