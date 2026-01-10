@@ -86,7 +86,6 @@ public class LoginActivity extends AppCompatActivity {
 
                     Toast.makeText(LoginActivity.this, "Login Berhasil", Toast.LENGTH_SHORT).show();
 
-                    // Cek role dan pindah ke Activity sesuai role
                     switch (res.data.user.role) {
                         case "admin":
                             startActivity(new Intent(LoginActivity.this, AdminActivity.class));

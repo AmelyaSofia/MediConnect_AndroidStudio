@@ -19,6 +19,8 @@ import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.timepicker.MaterialTimePicker;
 import com.google.android.material.timepicker.TimeFormat;
 
+import org.json.JSONObject;
+
 import java.io.IOException;
 import java.util.Calendar;
 
@@ -92,7 +94,6 @@ public class JanjiTemuActivity extends AppCompatActivity {
 
     private void setupListeners() {
 
-        // Pilih tanggal
         btnPilihTanggal.setOnClickListener(v -> {
             MaterialDatePicker<Long> datePicker = MaterialDatePicker.Builder
                     .datePicker()
@@ -117,7 +118,6 @@ public class JanjiTemuActivity extends AppCompatActivity {
             });
         });
 
-        // Pilih waktu
         btnPilihWaktu.setOnClickListener(v -> {
             MaterialTimePicker timePicker = new MaterialTimePicker.Builder()
                     .setTimeFormat(TimeFormat.CLOCK_24H)
@@ -137,7 +137,6 @@ public class JanjiTemuActivity extends AppCompatActivity {
             });
         });
 
-        // Konfirmasi janji
         btnKonfirmasiJanji.setOnClickListener(v -> {
             if (tanggalJanji == null || waktuJanji == null) {
                 Toast.makeText(this, "Harap pilih tanggal dan waktu", Toast.LENGTH_SHORT).show();
@@ -161,24 +160,49 @@ public class JanjiTemuActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<AppointmentResponse> call, Response<AppointmentResponse> response) {
                 if (response.isSuccessful() && response.body() != null && response.body().isSuccess()) {
+
                     Toast.makeText(JanjiTemuActivity.this,
                             "Janji temu berhasil dibuat",
                             Toast.LENGTH_SHORT).show();
                     setResult(RESULT_OK);
                     finish();
+
                 } else {
-                    try {
-                        String error = response.errorBody() != null
-                                ? response.errorBody().string()
-                                : "Terjadi kesalahan";
-                        Toast.makeText(JanjiTemuActivity.this,
-                                error,
-                                Toast.LENGTH_LONG).show();
-                    } catch (IOException e) {
-                        e.printStackTrace();
+
+                    if (response.errorBody() != null) {
+                        try {
+                            JSONObject json = new JSONObject(response.errorBody().string());
+                            String message = json.optString("message", "Terjadi kesalahan");
+                            Toast.makeText(JanjiTemuActivity.this, message, Toast.LENGTH_LONG).show();
+                        } catch (Exception e) {
+                            Toast.makeText(JanjiTemuActivity.this, "Terjadi kesalahan", Toast.LENGTH_LONG).show();
+                        }
+                    } else {
+                        Toast.makeText(JanjiTemuActivity.this, "Terjadi kesalahan", Toast.LENGTH_LONG).show();
                     }
                 }
             }
+
+//            public void onResponse(Call<AppointmentResponse> call, Response<AppointmentResponse> response) {
+//                if (response.isSuccessful() && response.body() != null && response.body().isSuccess()) {
+//                    Toast.makeText(JanjiTemuActivity.this,
+//                            "Janji temu berhasil dibuat",
+//                            Toast.LENGTH_SHORT).show();
+//                    setResult(RESULT_OK);
+//                    finish();
+//                } else {
+//                    try {
+//                        String error = response.errorBody() != null
+//                                ? response.errorBody().string()
+//                                : "Terjadi kesalahan";
+//                        Toast.makeText(JanjiTemuActivity.this,
+//                                error,
+//                                Toast.LENGTH_LONG).show();
+//                    } catch (IOException e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//            }
 
             @Override
             public void onFailure(Call<AppointmentResponse> call, Throwable t) {

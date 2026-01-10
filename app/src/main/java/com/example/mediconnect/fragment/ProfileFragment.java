@@ -32,7 +32,6 @@
         private boolean isAdmin = false;
 
         public ProfileFragment() {
-            // Required empty public constructor
         }
 
         public static ProfileFragment newInstance(boolean isAdmin) {
@@ -81,8 +80,6 @@
             btnLogout.setOnClickListener(v -> logoutUser(prefs));
             btnDelete.setOnClickListener(v -> deleteUser(prefs));
 
-
-            // Tombol logout
             btnLogout.setOnClickListener(v -> {
                 new AlertDialog.Builder(getContext())
                         .setTitle("Logout")

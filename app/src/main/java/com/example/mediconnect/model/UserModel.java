@@ -10,7 +10,6 @@ public class UserModel {
 
     public boolean online;
 
-    // Getter untuk status online
     public boolean isOnline() {
         return online;
     }

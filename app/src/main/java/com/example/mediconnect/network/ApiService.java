@@ -5,6 +5,7 @@ import com.example.mediconnect.model.AppointmentResponse;
 import com.example.mediconnect.model.DokterResponse;
 import com.example.mediconnect.model.LoginResponse;
 import com.example.mediconnect.model.MyAppointmentResponse;
+import com.example.mediconnect.model.SimpleResponse;
 import com.example.mediconnect.model.UpdateUserResponse;
 import com.example.mediconnect.model.UserModel;
 import com.example.mediconnect.model.UsersResponse;
@@ -18,6 +19,8 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
+import retrofit2.http.Path;
 
 public interface ApiService {
 
@@ -65,5 +68,18 @@ public interface ApiService {
             @Field("note") String note
     );
     @GET("/api/appointments/my")
-    Call<MyAppointmentResponse> getMyAppointments(@Header("Authorization") String token);
+    Call<MyAppointmentResponse> getMyAppointments(
+            @Header("Authorization") String token
+    );
+
+    @PUT("/api/appointments/{id}/cancel")
+    Call<SimpleResponse> cancelAppointment(
+            @Header("Authorization") String token,
+            @Path("id") int id
+    );
+    @DELETE("/api/appointments/{id}")
+    Call<SimpleResponse> deleteAppointment(
+            @Header("Authorization") String token,
+            @Path("id") int id
+    );
 }
