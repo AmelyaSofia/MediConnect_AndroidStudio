@@ -1,28 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!-- Tombol buka ProfileFragment -->
-    <Button
-        android:id="@+id/btnProfile"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Profile"
-        android:layout_margin="8dp"/>
-
-    <!-- RecyclerView utama daftar user -->
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvUsers"
+    <FrameLayout
+        android:id="@+id/adminFragmentContainer"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:padding="8dp"/>
+        android:layout_weight="1"/>
 
-    <!-- Container fragment -->
-    <FrameLayout
-        android:id="@+id/fragmentProfileContainer"
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavAdmin"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        app:menu="@menu/menu_admin_bottom"
+        app:labelVisibilityMode="labeled"/>
+
 </LinearLayout>

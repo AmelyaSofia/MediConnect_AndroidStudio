@@ -13,5 +13,9 @@ public class UserModel {
     public boolean isOnline() {
         return online;
     }
+
+    public int getId() { return id; }
+    public String getName() { return name; }
+    public String getEmail() { return email; }
 }
 

@@ -18,10 +18,16 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
         this.users = users;
     }
 
+    public void setData(List<UserModel> newUsers) {
+        this.users = newUsers;
+        notifyDataSetChanged();
+    }
+
     @NonNull
     @Override
     public UserViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_user, parent, false);
+        View view = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.item_user, parent, false);
         return new UserViewHolder(view);
     }
 
@@ -35,12 +41,13 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
 
     @Override
     public int getItemCount() {
-        return users.size();
+        return users == null ? 0 : users.size();
     }
 
     static class UserViewHolder extends RecyclerView.ViewHolder {
         TextView tvName, tvEmail, tvRole;
-        public UserViewHolder(@NonNull View itemView) {
+
+        UserViewHolder(@NonNull View itemView) {
             super(itemView);
             tvName = itemView.findViewById(R.id.tvName);
             tvEmail = itemView.findViewById(R.id.tvEmail);
@@ -48,3 +55,4 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
         }
     }
 }
+

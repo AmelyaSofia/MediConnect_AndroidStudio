@@ -12,6 +12,10 @@ public class AppointmentModel {
     private String status;
     private String note;
     private DokterModel doctor;
+    private UserModel user;
+
+    public UserModel getUser() { return user; }
+
 
     public int getId() { return id; }
     public String getAppointmentDate() { return appointmentDate; }

@@ -1,25 +1,33 @@
 package com.example.mediconnect.network;
 
+import com.example.mediconnect.model.AdminAppointmentResponse;
 import com.example.mediconnect.model.AppointmentModel;
 import com.example.mediconnect.model.AppointmentResponse;
+import com.example.mediconnect.model.DokterModel;
 import com.example.mediconnect.model.DokterResponse;
 import com.example.mediconnect.model.LoginResponse;
 import com.example.mediconnect.model.MyAppointmentResponse;
 import com.example.mediconnect.model.SimpleResponse;
+import com.example.mediconnect.model.UpdateStatusRequest;
 import com.example.mediconnect.model.UpdateUserResponse;
 import com.example.mediconnect.model.UserModel;
 import com.example.mediconnect.model.UsersResponse;
 
 import java.util.List;
 
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
+import retrofit2.http.Part;
 import retrofit2.http.Path;
 
 public interface ApiService {
@@ -48,15 +56,52 @@ public interface ApiService {
     );
 
     @DELETE("/api/user/delete")
-    Call<Void> deleteUser(@Header("Authorization") String token);
+    Call<Void> deleteUser(
+            @Header("Authorization") String token);
 
     @GET("/api/users")
-    Call<UsersResponse> getAllUsers(@Header("Authorization") String token);
+    Call<UsersResponse> getAllUsers(
+            @Header("Authorization") String token);
 
     @GET("/api/doctors")
     Call<DokterResponse> getAllDoctors(
             @Header("Authorization") String token
     );
+
+    @Multipart
+    @POST("/api/doctors")
+    Call<DokterModel> createDoctor(
+            @Header("Authorization") String token,
+
+            @Part("name") RequestBody name,
+            @Part("specialization") RequestBody specialization,
+            @Part("phone") RequestBody phone,
+            @Part("schedule") RequestBody schedule,
+            @Part("description") RequestBody description,
+
+            @Part MultipartBody.Part photo
+    );
+    @Multipart
+    @POST("/api/doctors/{id}")
+    Call<DokterModel> updateDoctor(
+            @Header("Authorization") String token,
+            @Path("id") int id,
+
+            @Part("name") RequestBody name,
+            @Part("specialization") RequestBody specialization,
+            @Part("phone") RequestBody phone,
+            @Part("schedule") RequestBody schedule,
+            @Part("description") RequestBody description,
+
+            @Part MultipartBody.Part photo
+    );
+
+    @DELETE("/api/doctors/{id}")
+    Call<SimpleResponse> deleteDoctor(
+            @Header("Authorization") String token,
+            @Path("id") int id
+    );
+
 
     @FormUrlEncoded
     @POST("/api/appointments")
@@ -81,5 +126,17 @@ public interface ApiService {
     Call<SimpleResponse> deleteAppointment(
             @Header("Authorization") String token,
             @Path("id") int id
+    );
+
+    @GET("/api/admin/appointments")
+    Call<AdminAppointmentResponse> getAllAppointmentsAdmin(
+            @Header("Authorization") String token
+    );
+
+    @PUT("/api/admin/appointments/{id}")
+    Call<SimpleResponse> updateAppointmentStatus(
+            @Header("Authorization") String token,
+            @Path("id") int id,
+            @Body UpdateStatusRequest body
     );
 }
