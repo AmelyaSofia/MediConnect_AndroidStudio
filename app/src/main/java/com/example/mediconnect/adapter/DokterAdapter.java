@@ -45,7 +45,7 @@ public class DokterAdapter extends RecyclerView.Adapter<DokterAdapter.ViewHolder
         holder.nama.setText(dokter.getName());
         holder.spesialis.setText(dokter.getSpecialization());
 
-        String url = "http://10.0.2.2:8000/" + dokter.getPhoto();
+        String url = "http://10.0.2.2:8001/" + dokter.getPhoto();
         Log.d("INI_LINK", url);
 
         holder.foto.setImageDrawable(null);

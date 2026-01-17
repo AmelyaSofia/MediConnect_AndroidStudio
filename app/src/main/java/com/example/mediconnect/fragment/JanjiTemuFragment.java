@@ -59,7 +59,6 @@ public class JanjiTemuFragment extends Fragment {
         loadAppointments();
     }
 
-    /* ================== LOAD DATA ================== */
     private void loadAppointments() {
         SharedPreferences prefs = requireActivity()
                 .getSharedPreferences("AUTH", Context.MODE_PRIVATE);
@@ -94,7 +93,6 @@ public class JanjiTemuFragment extends Fragment {
                             JanjiTemuAdapter adapter =
                                     new JanjiTemuAdapter(allAppointments);
 
-                            /* ===== LISTENER YANG BENAR ===== */
                             adapter.setOnAppointmentActionListener(
                                     new JanjiTemuAdapter.OnAppointmentActionListener() {
 
@@ -130,7 +128,6 @@ public class JanjiTemuFragment extends Fragment {
                 });
     }
 
-    /* ================== DIALOG ================== */
     private void showCancelDialog(int appointmentId) {
         new AlertDialog.Builder(requireContext())
                 .setTitle("Batalkan Janji Temu")
@@ -151,7 +148,6 @@ public class JanjiTemuFragment extends Fragment {
                 .show();
     }
 
-    /* ================== CANCEL ================== */
     private void cancelAppointment(int appointmentId) {
         SharedPreferences prefs = requireActivity()
                 .getSharedPreferences("AUTH", Context.MODE_PRIVATE);
@@ -181,7 +177,6 @@ public class JanjiTemuFragment extends Fragment {
                 });
     }
 
-    /* ================== DELETE ================== */
     private void deleteAppointment(int appointmentId) {
         SharedPreferences prefs = requireActivity()
                 .getSharedPreferences("AUTH", Context.MODE_PRIVATE);
@@ -211,7 +206,6 @@ public class JanjiTemuFragment extends Fragment {
                 });
     }
 
-    /* ================== EMPTY ================== */
     private void showEmpty() {
         rvJanjiTemu.setVisibility(View.GONE);
         tvBelumAdaJanji.setVisibility(View.VISIBLE);
